@@ -8,7 +8,7 @@
 
 ## Heap
 - a bunch of chunks of memory(done but i did the array version)
-struct chunk on heap{ int size, char* pointer_to_start}  
+struct chunk on heap{ int size, char* pointer_to_start}  i need to add address to the struct
 - add a chunk back
 create the chunk_on_heap; heap_insert()
 - get a chunk out(it's not ours any more, its the users)
