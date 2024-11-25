@@ -1,0 +1,38 @@
+## Malloc
+
+-allocates memory
+-we have a bunch of memory we know about but nobody else does 
+-we store it on a Heap
+- we reserve space for who called us
+
+
+## Heap
+- a bunch of chunks of memory(done but i did the array version)
+struct chunk on heap{ int size, char* pointer_to_start}  
+- add a chunk back
+create the chunk_on_heap; heap_insert()
+- get a chunk out(it's not ours any more, its the users)
+try to find size or bigger
+if found a chunk: cut it into two (actual size and leftover)
+    return the actual size 
+    heap_insert(leftover)
+if no find:
+    get more memory from system (sbrk)
+    split that, heap_insert(leftover)
+- MinHeap based on size of chunk -- sorted from smallest to largest
+- Small chunks are more frequently requested 
+
+
+- What do we do when heap is empty?
+sbrk()
+- What do we do when the user requests a larger thing than is in the heap?
+sbrk()
+
+## sbrk()
+- Ask linux for a Huge Chunk of memory
+
+
+## Free 
+- deallocating memory
+- user gives us the memory back
+- add that into what we know about (and user is supposed to forget about now)
