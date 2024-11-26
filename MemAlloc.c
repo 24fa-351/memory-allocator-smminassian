@@ -36,3 +36,5 @@ chunk* malloc(int size){
     for()
 
 }
+
+//This will be my full focus tomorrow. I will get as far as i can in getting it done. 
