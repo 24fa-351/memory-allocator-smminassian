@@ -23,6 +23,7 @@ char* xmalloc(size_t size){
     char* newPage = sbrk(pageSize);
     for(int ix = 0; ix < numOfFreeInList; ix++){
         if(FreeList[ix].size >= size){
+            fprintf(stderr, "Hi");
             //return this to user
             AllocatedList[numOfAllocatedInList].size = size;
             AllocatedList[numOfAllocatedInList].address = &newPage[FreeList[ix].size - size];
@@ -32,7 +33,8 @@ char* xmalloc(size_t size){
             numOfAllocatedInList++;
 
             FreeList[ix].size -= size;
-
+            
+            fprintf(stderr, "Hola");
             if(FreeList[ix].size == 0){
                 for(int wx = ix + 1; wx < numOfFreeInList; wx++){
                     FreeList[wx-1] = FreeList[wx];
@@ -50,11 +52,13 @@ char* xmalloc(size_t size){
         FreeList[numOfFreeInList].address = &newPage[size];
         numOfFreeInList++;
     }
+    
 
     AllocatedList[numOfAllocatedInList].address = newPage;
     AllocatedList[numOfAllocatedInList].size = size;
     numOfAllocatedInList++;
 
+        
     char *ptr = newPage;
 
     fprintf(stderr, __FILE__ ": %d malloc(%lu) = %p\n", __LINE__, size, ptr);
@@ -62,7 +66,6 @@ char* xmalloc(size_t size){
 }
 
 void xfree(void *ptr){
-
     for(int jx = 0; jx < numOfAllocatedInList; jx++){
         if(ptr == AllocatedList[jx].address){
             //we found the match, move from alloc list to free list
@@ -73,5 +76,5 @@ void xfree(void *ptr){
                 numOfAllocatedInList--;
         }
     }
-    fprintf(stderr, __FILE__ ":free(dont know how to free(%p)\n", ptr);
+  
 }

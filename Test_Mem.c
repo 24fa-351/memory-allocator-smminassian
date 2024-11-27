@@ -6,8 +6,6 @@
 
 #include "MemAlloc.h"
 
-
-
 // define "x" for system malloc, include for our versions. Don't do both.
 #ifdef SYSTEM_MALLOC
 #define xfree free
@@ -18,7 +16,7 @@
 
 int rand_between(int min, int max) { return rand() % (max - min + 1) + min; }
 
-#define TEST_SIZE 30
+#define TEST_SIZE 1000
 
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 
@@ -54,14 +52,14 @@ int main(int argc, char *argv[]) {
 
     fprintf(stderr, "[%d] '%s', %p\n", ix, ptrs[ix], ptrs[ix]);
 
-    // int index_to_free = rand_between(0, ix);
-    // if (ptrs[index_to_free]) {
-    //   fprintf(stderr, "\n[%d] randomly freeing %p ('%s')\n", index_to_free,
-    //           ptrs[index_to_free], ptrs[index_to_free]);
-    //   xfree(ptrs[index_to_free]);
-    //   fprintf(stderr, "[%d] freed %p\n", index_to_free, ptrs[index_to_free]);
-    //   ptrs[index_to_free] = NULL;
-    // }
+    int index_to_free = rand_between(0, ix);
+    if (ptrs[index_to_free]) {
+      fprintf(stderr, "\n[%d] randomly freeing %p ('%s')\n", index_to_free,
+              ptrs[index_to_free], ptrs[index_to_free]);
+      xfree(ptrs[index_to_free]);
+      fprintf(stderr, "[%d] freed %p\n", index_to_free, ptrs[index_to_free]);
+      ptrs[index_to_free] = NULL;
+    }
   }
 
   for (int ix = 0; ix < TEST_SIZE; ix++) {
